@@ -1,0 +1,793 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "GenZ@Work Admin API",
+    "version": "1.0.0",
+    "description": "Use Authorization: Bearer <token>. Enter the full Bearer prefix in Authorize. Money and percentages are decimal strings. All writes require a reason; updates require the current version."
+  },
+  "basePath": "/",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "FareWrite": {
+      "type": "object",
+      "properties": {
+        "base_fare": {
+          "type": "string",
+          "example": "40.00"
+        },
+        "per_km_rate": {
+          "type": "string",
+          "example": "12.00"
+        },
+        "per_minute_rate": {
+          "type": "string",
+          "example": "2.00"
+        },
+        "minimum_fare": {
+          "type": "string",
+          "example": "60.00"
+        },
+        "max_multiplier": {
+          "type": "string",
+          "example": "3.00"
+        },
+        "surge_enabled": {
+          "type": "boolean",
+          "example": true
+        },
+        "version": {
+          "type": "integer",
+          "example": 1
+        },
+        "reason": {
+          "type": "string",
+          "example": "Updated after operations review"
+        }
+      },
+      "required": [
+        "base_fare",
+        "per_km_rate",
+        "per_minute_rate",
+        "minimum_fare",
+        "max_multiplier",
+        "surge_enabled",
+        "version",
+        "reason"
+      ]
+    },
+    "ShareWrite": {
+      "type": "object",
+      "properties": {
+        "driver_pct": {
+          "type": "string",
+          "example": "85.00"
+        },
+        "company_pct": {
+          "type": "string",
+          "example": "15.00"
+        },
+        "version": {
+          "type": "integer",
+          "example": 1
+        },
+        "reason": {
+          "type": "string",
+          "example": "Updated after operations review"
+        }
+      },
+      "required": [
+        "driver_pct",
+        "company_pct",
+        "version",
+        "reason"
+      ]
+    },
+    "ZoneCreate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Evening peak"
+        },
+        "latitude": {
+          "type": "number",
+          "example": 28.6139
+        },
+        "longitude": {
+          "type": "number",
+          "example": 77.209
+        },
+        "radius_m": {
+          "type": "integer",
+          "example": 4000
+        },
+        "multiplier": {
+          "type": "string",
+          "example": "1.50"
+        },
+        "timezone": {
+          "type": "string",
+          "example": "Asia/Kolkata"
+        },
+        "start_time": {
+          "type": "string",
+          "example": "17:00"
+        },
+        "end_time": {
+          "type": "string",
+          "example": "21:00"
+        },
+        "days": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "example": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "enabled": {
+          "type": "boolean",
+          "example": true
+        },
+        "reason": {
+          "type": "string",
+          "example": "Updated after operations review"
+        }
+      },
+      "required": [
+        "name",
+        "latitude",
+        "longitude",
+        "radius_m",
+        "multiplier",
+        "timezone",
+        "start_time",
+        "end_time",
+        "days",
+        "enabled",
+        "reason"
+      ]
+    },
+    "ZoneWrite": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Evening peak"
+        },
+        "latitude": {
+          "type": "number",
+          "example": 28.6139
+        },
+        "longitude": {
+          "type": "number",
+          "example": 77.209
+        },
+        "radius_m": {
+          "type": "integer",
+          "example": 4000
+        },
+        "multiplier": {
+          "type": "string",
+          "example": "1.50"
+        },
+        "timezone": {
+          "type": "string",
+          "example": "Asia/Kolkata"
+        },
+        "start_time": {
+          "type": "string",
+          "example": "17:00"
+        },
+        "end_time": {
+          "type": "string",
+          "example": "21:00"
+        },
+        "days": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "example": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "enabled": {
+          "type": "boolean",
+          "example": true
+        },
+        "reason": {
+          "type": "string",
+          "example": "Updated after operations review"
+        },
+        "version": {
+          "type": "integer",
+          "example": 1
+        }
+      },
+      "required": [
+        "name",
+        "latitude",
+        "longitude",
+        "radius_m",
+        "multiplier",
+        "timezone",
+        "start_time",
+        "end_time",
+        "days",
+        "enabled",
+        "reason",
+        "version"
+      ]
+    },
+    "Preview": {
+      "type": "object",
+      "properties": {
+        "distance_m": {
+          "type": "string",
+          "example": "5000"
+        },
+        "duration_seconds": {
+          "type": "string",
+          "example": "900"
+        },
+        "latitude": {
+          "type": "number",
+          "example": 28.6139
+        },
+        "longitude": {
+          "type": "number",
+          "example": 77.209
+        }
+      },
+      "required": [
+        "distance_m",
+        "duration_seconds",
+        "latitude",
+        "longitude"
+      ]
+    }
+  },
+  "paths": {
+    "/api/admin/dashboard": {
+      "get": {
+        "summary": "Operations overview",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      }
+    },
+    "/api/admin/drivers": {
+      "get": {
+        "summary": "Driver monitoring",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      }
+    },
+    "/api/admin/rides": {
+      "get": {
+        "summary": "Ride monitoring",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      }
+    },
+    "/api/admin/fare-rules": {
+      "get": {
+        "summary": "Current fare rules",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      },
+      "put": {
+        "summary": "Replace fare policy",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FareWrite"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      }
+    },
+    "/api/admin/surge-zones": {
+      "get": {
+        "summary": "List surge zones",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create circular surge zone",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ZoneCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      }
+    },
+    "/api/admin/surge-zones/{zone_id}": {
+      "put": {
+        "summary": "Replace surge zone",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "zone_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ZoneWrite"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      }
+    },
+    "/api/admin/revenue-share": {
+      "get": {
+        "summary": "Current revenue split",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      },
+      "put": {
+        "summary": "Create effective revenue split",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ShareWrite"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      }
+    },
+    "/api/admin/audit": {
+      "get": {
+        "summary": "Paginated settings audit",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "default": 1
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "type": "integer",
+            "default": 25,
+            "maximum": 100
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      }
+    },
+    "/api/admin/ledger": {
+      "get": {
+        "summary": "Paginated allocation ledger",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "default": 1
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "type": "integer",
+            "default": 25,
+            "maximum": 100
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      }
+    },
+    "/api/admin/quote-preview": {
+      "post": {
+        "summary": "Admin-only fare calculator; not a route estimate",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Preview"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: {data: result, request_id: UUID}"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/expired token"
+          },
+          "403": {
+            "description": "Admin role required"
+          },
+          "409": {
+            "description": "Concurrent edit: reload current version"
+          },
+          "503": {
+            "description": "Monitoring adapter not configured"
+          }
+        }
+      }
+    }
+  }
+}

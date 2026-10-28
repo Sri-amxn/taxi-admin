@@ -1,0 +1,10 @@
+-c constraints.txt
+Flask==3.1.2
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.1.0
+PyJWT==2.10.1
+python-dotenv==1.1.1
+tzdata==2025.2
+pytest==8.4.2
+flasgger==0.9.7.1
+SQLAlchemy==2.0.44
